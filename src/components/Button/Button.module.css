@@ -1,0 +1,62 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-8);
+  min-height: var(--touch-target);
+  padding: 0 var(--space-16);
+  border: 0;
+  border-radius: var(--radius-md);
+  font: var(--font-label);
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color 120ms ease, color 120ms ease;
+}
+
+.fullWidth {
+  width: 100%;
+}
+
+.button:disabled {
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.primary {
+  background: var(--button-primary-bg);
+  color: var(--button-primary-fg);
+  box-shadow: var(--shadow-button);
+}
+.primary:active:not(:disabled) {
+  background: var(--button-primary-bg-pressed);
+}
+/* Figma keeps inverse text on the disabled primary fill. */
+.primary:disabled {
+  background: var(--button-primary-bg-disabled);
+}
+
+.secondary {
+  background: var(--button-secondary-bg);
+  color: var(--button-secondary-fg);
+  box-shadow: var(--shadow);
+}
+.secondary:active:not(:disabled) {
+  background: var(--button-secondary-bg-pressed);
+  color: var(--button-secondary-fg-pressed);
+}
+.secondary:disabled {
+  background: var(--button-secondary-bg-disabled);
+  color: var(--button-fg-disabled);
+}
+
+.ghost {
+  background: transparent;
+  color: var(--button-ghost-fg);
+}
+.ghost:active:not(:disabled) {
+  background: var(--button-ghost-bg-pressed);
+  color: var(--button-ghost-fg-pressed);
+}
+.ghost:disabled {
+  color: var(--button-fg-disabled);
+}

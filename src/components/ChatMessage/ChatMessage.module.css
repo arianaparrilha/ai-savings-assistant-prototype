@@ -1,0 +1,75 @@
+.user {
+  display: flex;
+  justify-content: flex-end;
+  padding-left: var(--space-40);
+}
+
+.bubble {
+  padding: var(--space-12) var(--space-16);
+  border-radius: var(--radius-lg);
+  background: var(--chat-user-bg);
+  color: var(--text-primary);
+  font: var(--font-body);
+}
+
+.ai {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-8);
+}
+
+.aiIcon {
+  flex: none;
+  margin-top: 2px;
+  color: var(--ai-icon);
+}
+
+.aiText {
+  flex: 1 1 auto;
+  min-width: 0;
+  font: var(--font-body);
+  color: var(--text-primary);
+}
+
+.working {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-8);
+  font: var(--font-caption);
+  color: var(--text-secondary);
+}
+
+.spinner {
+  flex: none;
+  color: var(--text-secondary);
+  animation: spin 1.2s linear infinite;
+}
+
+.steps {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  padding-top: 2px;
+}
+
+.changeLog {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-8);
+  font: var(--font-caption);
+  color: var(--text-secondary);
+  text-align: center;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spinner {
+    animation: none;
+  }
+}

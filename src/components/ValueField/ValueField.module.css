@@ -1,0 +1,78 @@
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  min-width: 0;
+}
+
+.label {
+  font: var(--font-caption);
+  color: var(--text-secondary);
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  min-height: var(--touch-target);
+  margin: calc((32px - var(--touch-target)) / 2) 0;
+}
+
+.value {
+  font: var(--font-value-lg);
+  color: var(--text-primary);
+  white-space: nowrap;
+}
+
+.iconButton {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: var(--touch-target);
+  height: var(--touch-target);
+  margin-left: calc(-1 * var(--space-8));
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-full);
+  background: transparent;
+  color: var(--text-primary);
+  cursor: pointer;
+}
+.iconButton:active {
+  background: var(--button-ghost-bg-pressed);
+}
+
+/* Editing: 2 px focus underline under the value, no box. */
+.editing {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 1ch;
+  padding-bottom: 2px;
+  border-bottom: 2px solid var(--value-edit-underline);
+  font: var(--font-value-lg);
+  color: var(--text-primary);
+}
+
+.input {
+  min-width: 2ch;
+  max-width: 12ch;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  outline: none;
+}
+/* Narrow phones (≈360 px): two dates side by side don't fit at ValueLg. */
+@container (max-width: 320px) {
+  .value,
+  .editing {
+    font: var(--font-value-md);
+  }
+}
+
+.input[type='month'],
+.input[type='date'] {
+  max-width: none;
+  font: var(--font-value-md);
+}

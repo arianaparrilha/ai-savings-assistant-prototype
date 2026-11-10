@@ -7,7 +7,9 @@ Coded prototype of a design case study: a mobile banking app where the user stat
 - Mirror Figma: component names and props match the Figma components (PascalCase components, camelCase props).
 - Never hard-code colours, spacing, radii or type. Everything comes from tokens (see Design system).
 - Ask before adding a dependency that isn't listed under Stack.
-- The AI is simulated (scripted state machine + simple intent matching). No LLM API calls.
+- The AI runs behind one `AssistantEngine` interface (`interpret(text, context) → Intent`). The default engine is scripted (state machine + simple intent matching) and makes no LLM calls. A Claude-backed engine can be added later as a toggle, called through a serverless function (`/api/assistant`) so no API key ships to the browser. Screens never know which engine is running.
+- `src/lib/examples.ts` holds example utterances → expected intents. They are the test cases for every engine (scripted now, real AI later).
+- Copy: tidy awkward or placeholder Figma copy when implementing, and log each change in `docs/ai-log.md` so Figma can be synced.
 - All plan numbers come from the functions in `src/lib/plan.ts`, never typed into components. The test cases below must pass.
 - Keep a short log of notable decisions and corrections in `docs/ai-log.md` (what you generated, what was changed). It feeds the case study.
 - The Figma MCP has very few calls left on this account. Do not call it unless asked. Use `/reference` PNGs and `/tokens` JSON instead.
@@ -43,8 +45,16 @@ src/
   lib/conversation.ts   scripted state machine + intent matching
   components/           one folder per component
   screens/              Home, Assistant (conversation), Goal
-  App.tsx               phone frame (412 px wide) centred on desktop
+  components/DeviceFrame   Android mockup on desktop/tablet; hidden on phones (app fills the screen)
+  screens/ComponentGallery every component and state, at #components
+  App.tsx               view switcher (Prototype / Components) + DeviceFrame
 ```
+
+## Presentation
+
+- Phone (width < 600 px, or a short touch screen): the app fills the real screen, no mockup chrome.
+- Desktop and tablet: a static Android mockup (dark bezel, status bar, gesture bar) with the 412 × 917 app area. On short windows the app area shrinks in height and scrolls inside; the width stays 412.
+- `#components` opens the component gallery inside the mockup. `#components&sheet=info|review|validating|success` opens a sheet state directly (for review and screenshots).
 
 ## Product context
 
@@ -87,7 +97,7 @@ Naming: Figma uses PascalCase (`TextPrimary`, `Brand/600`). In CSS use kebab-cas
 | SuccessBg / SuccessFg | Green 100 / 700 | WarningBg / WarningFg | Yellow 100 / 700 |
 | DangerBg / DangerFg | Red 100 / 600 | | |
 
-Rules: purple and the sparkle icon mean "AI" only. Cyan means info and app actions. Status text (`*Fg`) is never placed on `Surface` (yellow fails contrast there); on `Surface` use a Tag with its own background.
+Rules: purple and the sparkle icon mean "AI" only. Status tags use status icons instead (check for fits / on track / approved, sliders for adjusted, triangle for warnings and doesn't fit), even where Figma draws a sparkle. Cyan means info and app actions. Status text (`*Fg`) is never placed on `Surface` (yellow fails contrast there); on `Surface` use a Tag with its own background.
 
 ### Component tokens (aliases)
 
@@ -221,9 +231,9 @@ Intent matching for the demo: amounts ("make it 4.000", "4000 €"), dates ("in 
 
 1. `tokens.css` from `/tokens` (or the tables above) and `format.ts`. ✅
 2. `plan.ts` with the test cases passing. ✅
-3. Base components: Button, IconButton, ActionChip, Tag, TextField, Toggle, SegmentedControl, Link, ListRow, ProgressBar, Card.
-4. ValueField, AffordabilityBar, the row components, RequestSummary.
-5. PlanCard (all states) and PlanHeader.
-6. ChatMessage, Composer, TopBar, BottomNav, BottomSheet.
+3. Base components: Button, IconButton, ActionChip, Tag, TextField, Toggle, SegmentedControl, Link, ListRow, ProgressBar, Card. ✅
+4. ValueField, AffordabilityBar, the row components, RequestSummary. ✅
+5. PlanCard (all states) and PlanHeader. ✅
+6. ChatMessage, Composer, TopBar, BottomNav, BottomSheet. ✅ (+ DeviceFrame, component gallery)
 7. Conversation state machine and screens, then the Home and Goal screens.
 8. Transitions, sticky header, polish, deploy.

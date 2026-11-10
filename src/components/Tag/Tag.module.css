@@ -1,0 +1,66 @@
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-8);
+  min-height: 36px;
+  padding: var(--space-8) var(--space-12);
+  border-radius: var(--radius-md);
+  font: var(--font-caption);
+}
+
+.block {
+  display: flex;
+  width: 100%;
+}
+
+.icon {
+  flex: none;
+}
+
+.text {
+  flex: 1 1 auto;
+}
+
+.action {
+  flex: none;
+  min-height: var(--touch-target);
+  margin: calc(-1 * var(--space-8)) calc(-1 * var(--space-8)) calc(-1 * var(--space-8)) 0;
+  padding: 0 var(--space-8);
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--link-fg);
+  font: var(--font-label);
+  cursor: pointer;
+}
+.action:active {
+  color: var(--link-fg-pressed);
+}
+
+.neutral {
+  background: var(--tag-neutral-bg);
+  color: var(--tag-neutral-fg);
+}
+.info {
+  background: var(--info-bg);
+  color: var(--info-fg);
+}
+.ai {
+  background: var(--ai-surface);
+  color: var(--text-primary);
+}
+.ai .icon {
+  color: var(--ai-icon);
+}
+.success {
+  background: var(--success-bg);
+  color: var(--success-fg);
+}
+.warning {
+  background: var(--warning-bg);
+  color: var(--warning-fg);
+}
+.danger {
+  background: var(--danger-bg);
+  color: var(--danger-fg);
+}

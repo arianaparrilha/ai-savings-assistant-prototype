@@ -19,3 +19,30 @@ Notable decisions and corrections while building the prototype with Claude Code.
 - "3.000 € + Christmas 500 € → Jun 2027" and "eating out back to 80 € → Aug 2027" only work if the existing plan (holiday share 1.350 €) is kept and the change is added on top. Recalculating the default proposal would shrink the holiday share and keep the date at Sep. Modelled as "reach it sooner" = keep monthly + holiday share, add the extra.
 - Allowance shares are one-off: a plan that runs past the target (e.g. 180 €/month → Dec 2027) doesn't collect June 2028's allowance.
 - Default proposal when the goal needs more than the whole holiday allowance: share caps at 1.500 € and monthly rises to the amount needed (4.000 € → 228 €/month), which matches step 5 of the script.
+
+## 2026-11-10 · Components, device frame, gallery
+
+**Generated**
+- All CLAUDE.md components (steps 3–6), one folder each with a CSS module, using component/semantic tokens only. Read from `/reference` component sheets (base sheet is at 3×, composite at 2×).
+- `DeviceFrame`: Android mockup on desktop/tablet (bezel, status bar, gesture bar), removed on phones so the app fills the screen. On short laptop windows the app area shrinks in height and scrolls; width stays 412.
+- Component gallery at `#components`, with all four PlanCard states stacked and sheets openable by URL (`&sheet=review`).
+- Git repo + private GitHub remote.
+
+**Decisions (agreed with Ariana)**
+- Sparkle = AI only. Status tags get status icons: check (Fits your budget, Approved, On track), sliders (Plan adjusted), triangle (Doesn't fit, warnings). Figma draws sparkles on these.
+- "Uses your whole June allowance" warning has no action. Figma shows "Go now", the Tag component's placeholder.
+- Real AI later: conversation goes behind an `AssistantEngine` interface (scripted default, Claude via a serverless proxy as an option), with example utterances as shared tests.
+
+**Copy changes (sync to Figma)**
+- Plan status "No budget" → "Doesn't fit" (matches the state name and the script).
+- "≈ +8 € that you have free each month" → "≈ 8 € more than you have free each month".
+- Home chip "Tranfer money" → "Transfer money".
+
+**Small interpretations**
+- Disabled primary button keeps white text on Brand/200, as in Figma (the token table says `ButtonFgDisabled`). Disabled secondary and ghost use `ButtonFgDisabled`.
+- Filled TextField (Figma column 3) keeps the focus border after blur.
+- Chat composer always shows the send button, disabled until there's text (as in Figma C1). The compact Home composer swaps mic → send when typing.
+- AffordabilityBar legend rounds to the nearest 10 € (859,47 → 860 €), as in Figma. Exact figures go in the "Why these numbers?" sheet.
+- New component tokens not in CLAUDE.md: `SuggestionBorder` → Purple/200, `ValueEditUnderline` → BorderFocus, `DeviceBezel` → Neutral/900, `DeviceStatusFg` → TextPrimary.
+- Value grids never shrink a column below its content; under 320 px of card width, values drop from ValueLg to ValueMd so two dates fit side by side on 360 px phones.
+- Headless Chrome won't render narrower than ~500 px, so phone screenshots were checked at 540 px.

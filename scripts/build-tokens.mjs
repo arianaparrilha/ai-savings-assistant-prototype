@@ -145,6 +145,11 @@ const components = {
   NavIndicator: 'brand-100',
   NavFg: 'text-secondary',
   NavFgActive: 'text-primary',
+  // Not in CLAUDE.md: read from the reference PNGs (see docs/ai-log.md)
+  SuggestionBorder: 'purple-200',
+  ValueEditUnderline: 'border-focus',
+  DeviceBezel: 'neutral-900',
+  DeviceStatusFg: 'text-primary',
 };
 const alias = (map) => Object.entries(map).map(([k, v]) => `  --${kebab(k)}: var(--${v});`);
 const scrim = `  --scrim: ${hexToRgba(json.Neutral['900'].$value, 0.4)};`;
@@ -156,6 +161,11 @@ const dims = [
   '  --touch-target: 44px;',
   ...[16, 20, 24, 32].map((n) => `  --icon-${n}: ${n}px;`),
   '  --frame-width: 412px;',
+  '  --frame-height: 917px;',
+  '  --status-bar-height: 32px;',
+  '  --gesture-bar-height: 24px;',
+  '  --top-bar-height: 64px;',
+  '  --bottom-nav-height: 80px;',
 ];
 
 const section = (title, lines) => `\n  /* ${title} */\n${lines.join('\n')}`;

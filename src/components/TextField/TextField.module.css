@@ -1,0 +1,67 @@
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+.label {
+  font: var(--font-label);
+  color: var(--text-primary);
+}
+
+.control {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input {
+  width: 100%;
+  min-height: var(--touch-target);
+  padding: 0 var(--space-16);
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  background: var(--field-bg);
+  color: var(--field-text);
+  font: var(--font-label);
+  outline: none;
+  transition: background-color 120ms ease, border-color 120ms ease;
+}
+.input::placeholder {
+  color: var(--field-placeholder);
+}
+.input:focus {
+  background: var(--field-bg-focus);
+  border-color: var(--field-border-focus);
+}
+/* Filled and not focused: keeps the focus border so the value reads as entered (Figma column 3). */
+.input:not(:placeholder-shown):not(:focus) {
+  border-color: var(--field-border-focus);
+}
+.control:has(.suffix) .input {
+  padding-right: calc(var(--space-16) + var(--icon-20) + var(--space-8));
+}
+
+.suffix {
+  position: absolute;
+  right: var(--space-16);
+  color: var(--text-secondary);
+  pointer-events: none;
+}
+.input:not(:placeholder-shown) ~ .suffix,
+.input:focus ~ .suffix {
+  color: var(--text-primary);
+}
+
+.disabled .label {
+  color: var(--field-fg-disabled);
+}
+.disabled .input {
+  background: var(--field-bg-disabled);
+  color: var(--field-fg-disabled);
+  cursor: not-allowed;
+}
+.disabled .input::placeholder,
+.disabled .suffix {
+  color: var(--field-fg-disabled);
+}

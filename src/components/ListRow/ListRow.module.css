@@ -1,0 +1,68 @@
+.row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-12);
+  width: 100%;
+  min-height: 56px;
+  padding: var(--space-8);
+  border: 0;
+  border-radius: var(--radius-md);
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+}
+.standalone {
+  padding: var(--space-8) var(--space-16);
+}
+
+.interactive {
+  cursor: pointer;
+}
+.interactive:active {
+  background: var(--list-row-bg-pressed);
+}
+
+.leading {
+  flex: none;
+  display: grid;
+  place-items: center;
+  color: var(--text-primary);
+}
+.transaction .leading {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-full);
+  background: var(--surface);
+}
+
+.text {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.title {
+  font: var(--font-label);
+  color: var(--text-primary);
+}
+
+.subtitle {
+  font: var(--font-caption);
+  color: var(--text-secondary);
+}
+
+.amount,
+.amountPositive {
+  flex: none;
+  font: var(--font-value-md);
+  white-space: nowrap;
+}
+.amount {
+  color: var(--amount-negative);
+}
+.amountPositive {
+  color: var(--amount-positive);
+}

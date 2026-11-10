@@ -141,6 +141,10 @@
   --nav-indicator: var(--brand-100);
   --nav-fg: var(--text-secondary);
   --nav-fg-active: var(--text-primary);
+  --suggestion-border: var(--purple-200);
+  --value-edit-underline: var(--border-focus);
+  --device-bezel: var(--neutral-900);
+  --device-status-fg: var(--text-primary);
   --scrim: rgb(20 23 34 / 0.4);
 
   /* Dimensions */
@@ -162,4 +166,9 @@
   --icon-24: 24px;
   --icon-32: 32px;
   --frame-width: 412px;
+  --frame-height: 917px;
+  --status-bar-height: 32px;
+  --gesture-bar-height: 24px;
+  --top-bar-height: 64px;
+  --bottom-nav-height: 80px;
 }

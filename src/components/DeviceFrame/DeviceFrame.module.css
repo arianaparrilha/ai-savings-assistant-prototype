@@ -1,0 +1,91 @@
+/* ── Mockup (desktop, tablet) ─────────────────────────────── */
+.device {
+  --bezel: 12px;
+  padding: var(--bezel);
+  border-radius: 48px;
+  background: var(--device-bezel);
+  box-shadow: var(--shadow);
+}
+
+.screen {
+  display: flex;
+  flex-direction: column;
+  width: var(--frame-width);
+  overflow: hidden;
+  border-radius: 36px;
+  background: var(--bg);
+}
+
+.statusBar {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--status-bar-height);
+  padding: 0 var(--space-24);
+  background: var(--status-bar-bg, var(--bg));
+  color: var(--device-status-fg);
+  font: var(--font-caption-strong);
+}
+
+.statusIcons {
+  display: inline-flex;
+  gap: var(--space-4);
+}
+
+/* The app area keeps the Figma size when the window is tall enough, and shrinks (scrolling inside) when it isn't. */
+.app {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: min(
+    var(--frame-height),
+    100dvh - 2 * var(--space-24) - 2 * var(--bezel) - var(--status-bar-height) - var(--gesture-bar-height)
+  );
+  min-height: 560px;
+  overflow: hidden;
+}
+
+.gestureBar {
+  flex: none;
+  display: grid;
+  place-items: center;
+  height: var(--gesture-bar-height);
+  background: var(--bg);
+}
+.gestureBar span {
+  width: 108px;
+  height: 4px;
+  border-radius: var(--radius-full);
+  background: var(--text-primary);
+}
+
+/* ── Real phone: no chrome, fill the screen ───────────────── */
+@media (max-width: 599px), (max-height: 699px) and (pointer: coarse) {
+  .device {
+    padding: 0;
+    border-radius: 0;
+    background: none;
+    box-shadow: none;
+  }
+  .screen {
+    width: 100vw;
+    height: 100dvh;
+    border-radius: 0;
+  }
+  .statusBar,
+  .gestureBar {
+    display: none;
+  }
+  .app {
+    flex: 1 1 auto;
+    height: auto;
+    min-height: 0;
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+}
+
+/* An open sheet runs into the gesture area, like on a real device. */
+.screen:has([role='dialog']) .gestureBar {
+  background: var(--surface-raised);
+}

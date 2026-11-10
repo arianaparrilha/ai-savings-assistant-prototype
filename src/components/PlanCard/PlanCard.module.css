@@ -1,0 +1,81 @@
+.card {
+  container-type: inline-size;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+  padding: var(--space-16);
+  border-radius: var(--radius-lg);
+  background: var(--card-bg);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-12);
+}
+
+.title {
+  font: var(--font-card-heading);
+  color: var(--text-primary);
+}
+
+/* Sections are separated by a hairline, like the Figma card. */
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+  padding-top: var(--space-16);
+  border-top: 1px solid var(--border-subtle);
+}
+.header + .section,
+.header + section {
+  padding-top: 0;
+  border-top: 0;
+}
+
+.subheading {
+  font: var(--font-card-subheading);
+  color: var(--text-secondary);
+}
+
+.heading {
+  margin-top: var(--space-8);
+  font: var(--font-card-heading);
+  color: var(--text-primary);
+}
+
+.caption {
+  font: var(--font-caption);
+  color: var(--text-secondary);
+}
+
+.warning {
+  font: var(--font-caption);
+  color: var(--warning-fg);
+}
+
+.live {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-12);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(min-content, 1fr));
+  gap: var(--space-12) var(--space-16);
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+.inline {
+  display: flex;
+  align-items: center;
+  gap: var(--space-16);
+  margin-top: var(--space-4);
+}

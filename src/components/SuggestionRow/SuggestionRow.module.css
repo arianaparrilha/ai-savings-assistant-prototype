@@ -1,0 +1,31 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+  padding: var(--space-12);
+  border: 1px solid var(--suggestion-border);
+  border-radius: var(--radius-md);
+  background: var(--card-bg);
+}
+
+.text {
+  font: var(--font-caption);
+  color: var(--text-primary);
+}
+
+.impact {
+  font: var(--font-caption);
+  color: var(--ai-text);
+}
+
+.question {
+  font: var(--font-caption-strong);
+  color: var(--text-primary);
+  text-align: right;
+}
+
+.buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-8);
+}

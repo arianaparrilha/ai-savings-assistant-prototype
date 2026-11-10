@@ -1,0 +1,37 @@
+.iconButton {
+  flex: none;
+  display: inline-grid;
+  place-items: center;
+  width: var(--touch-target);
+  height: var(--touch-target);
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: background-color 120ms ease, color 120ms ease;
+}
+.iconButton:disabled {
+  cursor: not-allowed;
+}
+
+.primary {
+  background: var(--button-primary-bg);
+  color: var(--button-primary-fg);
+}
+.primary:active:not(:disabled) {
+  background: var(--button-primary-bg-pressed);
+}
+.primary:disabled {
+  background: var(--button-primary-bg-disabled);
+}
+
+.ghost {
+  background: transparent;
+  color: var(--text-primary);
+}
+.ghost:active:not(:disabled) {
+  background: var(--button-ghost-bg-pressed);
+}
+.ghost:disabled {
+  color: var(--button-fg-disabled);
+}
