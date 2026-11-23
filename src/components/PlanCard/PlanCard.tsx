@@ -259,7 +259,7 @@ function DoesntFit({ plan, suggestions = [], onApplySuggestion, onDismissSuggest
             <ValueField label="Monthly needed" value={formatCurrency(plan.monthly)} ariaValue={`${currencyLabel(plan.monthly)} per month`} />
             <ValueField label="Free each month" approx value={formatCurrency(plan.freeMargin)} ariaValue={`about ${currencyLabel(plan.freeMargin)}`} />
           </div>
-          <p className={styles.warning}>≈ {formatCurrency(over)} more than you have free each month</p>
+          <p className={styles.warning}>≈ {formatCurrency(over, { signed: true })} that you have free each month</p>
         </div>
         {suggestions.length > 0 && (
           <>

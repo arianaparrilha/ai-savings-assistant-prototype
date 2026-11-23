@@ -7,7 +7,7 @@ Coded prototype of a design case study: a mobile banking app where the user stat
 - Mirror Figma: component names and props match the Figma components (PascalCase components, camelCase props).
 - Never hard-code colours, spacing, radii or type. Everything comes from tokens (see Design system).
 - Ask before adding a dependency that isn't listed under Stack.
-- The AI runs behind one `AssistantEngine` interface (`interpret(text, context) → Intent`). The default engine is scripted (state machine + simple intent matching) and makes no LLM calls. A Claude-backed engine can be added later as a toggle, called through a serverless function (`/api/assistant`) so no API key ships to the browser. Screens never know which engine is running.
+- The AI runs behind one `AssistantEngine` interface (`interpret(text, context) → Intent`). The default engine is scripted (state machine + simple intent matching) and makes no LLM calls. A Claude-backed engine can be added later as a toggle, called through a small Worker script that handles `/api/assistant` (added as `main` in `wrangler.jsonc`) with the API key stored as a Cloudflare secret, so no key ships to the browser. Screens never know which engine is running.
 - `src/lib/examples.ts` holds example utterances → expected intents. They are the test cases for every engine (scripted now, real AI later).
 - Copy: tidy awkward or placeholder Figma copy when implementing, and log each change in `docs/ai-log.md` so Figma can be synced.
 - All plan numbers come from the functions in `src/lib/plan.ts`, never typed into components. The test cases below must pass.
@@ -21,7 +21,7 @@ Coded prototype of a design case study: a mobile banking app where the user stat
 - `lucide-react` for icons
 - `framer-motion` for card/sheet transitions (optional, ask first)
 - Vitest for `plan.ts` tests
-- Deploy: Vercel or GitHub Pages
+- Deploy: Cloudflare Workers (static assets), connected to the GitHub repo. Build `npm run build`, deploy `npx wrangler deploy` (config in `wrangler.jsonc`, serves `./dist`; Node version from `.node-version`). Pushes to `main` deploy to production; other branches get preview builds.
 
 ## Commands
 

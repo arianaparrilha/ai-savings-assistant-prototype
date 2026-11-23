@@ -35,7 +35,7 @@ Notable decisions and corrections while building the prototype with Claude Code.
 
 **Copy changes (sync to Figma)**
 - Plan status "No budget" → "Doesn't fit" (matches the state name and the script).
-- "≈ +8 € that you have free each month" → "≈ 8 € more than you have free each month".
+- ~~"≈ +8 € that you have free each month" → "≈ 8 € more than you have free each month"~~ Reverted on 2026-11-11: Ariana confirmed the Figma copy is correct. Kept as "≈ +8 € that you have free each month".
 - Home chip "Tranfer money" → "Transfer money".
 
 **Small interpretations**
@@ -46,3 +46,9 @@ Notable decisions and corrections while building the prototype with Claude Code.
 - New component tokens not in CLAUDE.md: `SuggestionBorder` → Purple/200, `ValueEditUnderline` → BorderFocus, `DeviceBezel` → Neutral/900, `DeviceStatusFg` → TextPrimary.
 - Value grids never shrink a column below its content; under 320 px of card width, values drop from ValueLg to ValueMd so two dates fit side by side on 360 px phones.
 - Headless Chrome won't render narrower than ~500 px, so phone screenshots were checked at 540 px.
+
+## 2026-11-13 · Deploy target
+
+- Deploy moved from Vercel to Cloudflare (Ariana already hosts other projects there). Git integration with the GitHub repo.
+- 2026-11-23: Cloudflare's dashboard now creates apps as Workers with static assets (Pages is labelled legacy), so the deploy uses `wrangler.jsonc` + `npx wrangler deploy`, serving `./dist`. The future real-AI proxy becomes a Worker script handling `/api/assistant`, with the key as a Cloudflare secret. Dry run checked locally.
+- Added `.node-version` (22) so Cloudflare's build uses a Node version that Vite 8 supports.
