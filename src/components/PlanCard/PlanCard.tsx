@@ -167,7 +167,10 @@ function Editable(props: PlanCardProps) {
   );
 }
 
-function Proposal({ state, plan, frequency, onFrequencyChange, note, editing, onEdit, onSave, onCancel, onReachSooner, onWhyMonthly, onSeeProposal }: PlanCardProps) {
+function Proposal({
+  state, plan, frequency, onFrequencyChange, note, editing, onEdit, onSave, onCancel, onReachSooner, onWhyMonthly, onSeeProposal,
+  suggestions = [], onApplySuggestion, onDismissSuggestion,
+}: PlanCardProps) {
   const edit = (field: EditableField) => ({
     state: editing === field ? ('editing' as const) : ('editable' as const),
     onEdit: () => onEdit?.(field),
@@ -233,11 +236,15 @@ function Proposal({ state, plan, frequency, onFrequencyChange, note, editing, on
         <div className={styles.grid}>{cells}</div>
       </div>
 
-      {state === 'adjusted' ? (
+      {state === 'adjusted' && note && <Tag tone="warning" block>{note}</Tag>}
+
+      {suggestions.length > 0 ? (
         <>
-          {note && <Tag tone="warning" block>{note}</Tag>}
-          <Link onClick={onSeeProposal}>See AI proposal</Link>
+          <h3 className={styles.heading}>Ways to reach it sooner</h3>
+          <SuggestionList suggestions={suggestions} onApply={onApplySuggestion} onDismiss={onDismissSuggestion} />
         </>
+      ) : state === 'adjusted' ? (
+        onSeeProposal && <Link onClick={onSeeProposal}>See AI proposal</Link>
       ) : (
         <div className={styles.inline}>
           <Button level="secondary" onClick={onReachSooner}>Reach it sooner</Button>
@@ -245,6 +252,28 @@ function Proposal({ state, plan, frequency, onFrequencyChange, note, editing, on
         </div>
       )}
     </section>
+  );
+}
+
+function SuggestionList({ suggestions, onApply, onDismiss }: {
+  suggestions: PlanSuggestion[];
+  onApply?: (id: string) => void;
+  onDismiss?: (id: string) => void;
+}) {
+  return (
+    <div className={styles.list}>
+      {suggestions.map((s) => (
+        <SuggestionRow
+          key={s.id}
+          recommended={s.recommended}
+          text={s.text}
+          impact={s.impact}
+          question={s.question}
+          onApply={() => onApply?.(s.id)}
+          onDismiss={() => onDismiss?.(s.id)}
+        />
+      ))}
+    </div>
   );
 }
 
@@ -264,19 +293,7 @@ function DoesntFit({ plan, suggestions = [], onApplySuggestion, onDismissSuggest
         {suggestions.length > 0 && (
           <>
             <h3 className={styles.heading}>Ways to get there</h3>
-            <div className={styles.list}>
-              {suggestions.map((s) => (
-                <SuggestionRow
-                  key={s.id}
-                  recommended={s.recommended}
-                  text={s.text}
-                  impact={s.impact}
-                  question={s.question}
-                  onApply={() => onApplySuggestion?.(s.id)}
-                  onDismiss={() => onDismissSuggestion?.(s.id)}
-                />
-              ))}
-            </div>
+            <SuggestionList suggestions={suggestions} onApply={onApplySuggestion} onDismiss={onDismissSuggestion} />
           </>
         )}
       </section>

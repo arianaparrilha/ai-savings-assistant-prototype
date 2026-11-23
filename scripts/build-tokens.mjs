@@ -150,6 +150,8 @@ const components = {
   ValueEditUnderline: 'border-focus',
   DeviceBezel: 'neutral-900',
   DeviceStatusFg: 'text-primary',
+  HeroGlow: 'brand-600',
+  HeroGlowSoft: 'brand-200',
 };
 const alias = (map) => Object.entries(map).map(([k, v]) => `  --${kebab(k)}: var(--${v});`);
 const scrim = `  --scrim: ${hexToRgba(json.Neutral['900'].$value, 0.4)};`;

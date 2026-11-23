@@ -1,0 +1,87 @@
+.screen {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.scroll {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+}
+
+.hero {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+  padding: var(--space-24) var(--space-20) var(--space-32);
+  background:
+    radial-gradient(circle at 88% 82%, var(--hero-glow) 0, transparent 38%),
+    radial-gradient(circle at 18% 0%, var(--hero-glow) 0, transparent 42%),
+    radial-gradient(circle at 50% 50%, var(--hero-glow-soft) 0, transparent 70%),
+    var(--hero-bg);
+  color: var(--text-primary);
+}
+
+.greeting {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  margin-bottom: var(--space-24);
+  font: var(--font-label);
+}
+
+.balanceLabel {
+  font: var(--font-heading);
+}
+
+.balance {
+  font: var(--font-value-xl);
+}
+
+.cards {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-24);
+  padding: var(--space-24) var(--space-20) var(--space-32);
+}
+
+.chips {
+  display: flex;
+  gap: var(--space-8);
+  overflow-x: auto;
+  margin: 0 calc(-1 * var(--space-16));
+  padding: 0 var(--space-16);
+  scrollbar-width: none;
+}
+.chips > * {
+  flex: none;
+}
+
+.divider {
+  width: 100%;
+  margin: 0;
+  border: 0;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.date {
+  font: var(--font-card-subheading);
+  color: var(--text-primary);
+}
+
+.goal {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+.saved {
+  font: var(--font-caption);
+  color: var(--text-secondary);
+}
+
+.empty {
+  font: var(--font-body);
+  color: var(--text-secondary);
+}

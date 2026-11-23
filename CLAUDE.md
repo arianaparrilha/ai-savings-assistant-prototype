@@ -42,19 +42,24 @@ src/
   styles/global.css     reset, body type, focus ring
   lib/plan.ts           plan calculations (pure functions, tested)
   lib/format.ts         currency and date formatting (pt-PT numbers, English UI)
-  lib/conversation.ts   scripted state machine + intent matching
+  lib/assistant.ts      AssistantEngine interface, Intent types, scripted engine (intent matching, pt-PT amount/month parsing)
+  lib/examples.ts       example utterances → expected intents (tests for every engine)
+  lib/conversation.ts   conversation state machine: step(state, event) → state + timed follow-ups; derived views and AI copy
+  lib/useConversation.ts React hook around the state machine (engine call, timers, reset)
+  lib/profile.ts        persona data: budget breakdown, facts behind suggestions, transactions
   components/           one folder per component
-  screens/              Home, Assistant (conversation), Goal
+  screens/              Home, Assistant (conversation + sheets), Goal, Placeholder (Payments, Cards)
   components/DeviceFrame   Android mockup on desktop/tablet; hidden on phones (app fills the screen)
   screens/ComponentGallery every component and state, at #components
-  App.tsx               view switcher (Prototype / Components) + DeviceFrame
+  App.tsx               view switcher (Prototype / Components / Restart demo), screen navigation, engine choice + DeviceFrame
 ```
 
 ## Presentation
 
 - Phone (width < 600 px, or a short touch screen): the app fills the real screen, no mockup chrome.
 - Desktop and tablet: a static Android mockup (dark bezel, status bar, gesture bar) with the 412 × 917 app area. On short windows the app area shrinks in height and scrolls inside; the width stays 412.
-- `#components` opens the component gallery inside the mockup. `#components&sheet=info|review|validating|success` opens a sheet state directly (for review and screenshots).
+- `#components` opens the component gallery inside the mockup. `#components&sheet=info|review|validating|success` opens a sheet state directly (for review and screenshots). `#assistant`, `#goals`, `#payments`, `#cards` open a prototype screen. "Restart demo" (desktop) clears the conversation.
+- The mic is simulated: it "hears" the next line of the script (`voiceLine` in `conversation.ts`), so the demo can be driven without typing.
 
 ## Product context
 
@@ -235,5 +240,5 @@ Intent matching for the demo: amounts ("make it 4.000", "4000 €"), dates ("in 
 4. ValueField, AffordabilityBar, the row components, RequestSummary. ✅
 5. PlanCard (all states) and PlanHeader. ✅
 6. ChatMessage, Composer, TopBar, BottomNav, BottomSheet. ✅ (+ DeviceFrame, component gallery)
-7. Conversation state machine and screens, then the Home and Goal screens.
+7. Conversation state machine and screens, then the Home and Goal screens. ✅
 8. Transitions, sticky header, polish, deploy.

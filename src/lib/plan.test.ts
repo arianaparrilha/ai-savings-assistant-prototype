@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { calculatePlan, countTransfers, extraByTarget, nextPayday } from './plan';
+import { calculatePlan, countTransfers, extraByTarget, moveDateOption, nextPayday } from './plan';
 import { formatDate } from './format';
 
 const SEP_2027 = { year: 2027, month: 9 };
@@ -92,5 +92,17 @@ describe('projection', () => {
     const june = p.projection.find((pt) => pt.date.getMonth() === 5)!;
     expect(june.allowance).toBe(1350);
     expect(june.cumulative).toBe(150 * 8 + 1350);
+  });
+});
+
+describe('alternatives', () => {
+  it('move the date: 4.000 € → 180 €/month, reach 25 Dec 2027', () => {
+    const option = moveDateOption({ goal: 4000, target: { year: 2027, month: 9 } })!;
+    expect(option.monthly).toBe(180);
+    expect(option.target).toEqual({ year: 2027, month: 12 });
+    const plan = calculatePlan(option);
+    expect(formatDate(plan.reachDate!)).toBe('25 Dec 2027');
+    expect(plan.transfersToReach).toBe(14);
+    expect(plan.onTime).toBe(true);
   });
 });

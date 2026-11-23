@@ -265,7 +265,7 @@ function PlanDemo({ state }: { state: PlanCardState }) {
       onCancel={() => setEditing(null)}
       actions={actions}
       onToggleAction={(id, v) => setActionsOn((s) => ({ ...s, [id]: v }))}
-      suggestions={[
+      suggestions={state !== 'doesntFit' ? undefined : [
         {
           id: 'christmas',
           recommended: true,

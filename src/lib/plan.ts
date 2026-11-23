@@ -87,7 +87,7 @@ export function nextPayday(today: Date = TODAY): YearMonth {
 }
 
 /** First occurrence of an allowance month within [start, target], or null. */
-function allowanceMonthIn(month: number, start: YearMonth, target: YearMonth): YearMonth | null {
+export function allowanceMonthIn(month: number, start: YearMonth, target: YearMonth): YearMonth | null {
   const s = monthIndex(start);
   const first = s + ((month - 1 - (s % 12) + 12) % 12);
   return first <= monthIndex(target) ? fromIndex(first) : null;
@@ -212,3 +212,22 @@ export function project(p: {
 export function extraByTarget(extraMonthly: number, transfers: number): number {
   return extraMonthly * transfers;
 }
+
+/** Buffer kept by the "Move the date" alternative: monthly = free margin − 40 € (220 → 180 €/month). */
+export const STRETCH_BUFFER = 40;
+
+/**
+ * "Move the date" alternative for a goal that doesn't fit: use the whole holiday allowance,
+ * save free margin − 40 € a month, and move the target to the month the goal is reached.
+ * 4.000 € → 180 €/month, 25 Dec 2027.
+ */
+export function moveDateOption(input: PlanInput): PlanInput & { target: YearMonth; monthly: number } | null {
+  const monthly = Math.max(0, (input.freeMargin ?? FREE_MARGIN) - STRETCH_BUFFER);
+  const probe = calculatePlan({ ...input, monthly, holidayShare: ALLOWANCES.holiday.amount });
+  if (!probe.reachDate) return null;
+  const target = { year: probe.reachDate.getFullYear(), month: probe.reachDate.getMonth() + 1 };
+  return { ...input, target, monthly, holidayShare: ALLOWANCES.holiday.amount };
+}
+
+/** Month a payday date falls in. */
+export const monthOf = (date: Date): YearMonth => ({ year: date.getFullYear(), month: date.getMonth() + 1 });

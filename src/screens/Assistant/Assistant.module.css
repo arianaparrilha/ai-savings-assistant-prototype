@@ -1,0 +1,149 @@
+.screen {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.body {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+.scroll {
+  height: 100%;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.thread {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+  padding: var(--space-16) var(--space-16) var(--space-24);
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-12);
+}
+
+/* Change log lines sit centred between messages. */
+.log {
+  align-items: center;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-8);
+}
+
+/* Compact plan header: hidden until the card's header scrolls away. */
+.pinned {
+  position: absolute;
+  z-index: 1;
+  top: var(--space-8);
+  left: var(--space-16);
+  right: var(--space-16);
+  width: auto;
+  opacity: 0;
+  transform: translateY(calc(-1 * var(--space-8)));
+  pointer-events: none;
+  visibility: hidden;
+  transition: opacity 160ms ease, transform 160ms ease, visibility 0s linear 160ms;
+}
+.pinnedVisible {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+  visibility: visible;
+  transition: opacity 160ms ease, transform 160ms ease;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* ── Sheets ───────────────────────────────────────────────── */
+.facts {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-12);
+  margin: 0;
+}
+
+.fact {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  column-gap: var(--space-12);
+  row-gap: var(--space-4);
+}
+
+.factLabel {
+  font: var(--font-body);
+  color: var(--text-primary);
+}
+
+.factValue {
+  margin: 0;
+  font: var(--font-value-md);
+  color: var(--text-primary);
+  text-align: right;
+}
+
+.factDetail {
+  grid-column: 1 / -1;
+  margin: 0;
+  font: var(--font-caption);
+  color: var(--text-secondary);
+}
+
+.caption {
+  font: var(--font-caption);
+  color: var(--text-secondary);
+}
+
+.reviewList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+  margin: 0;
+  padding: 0;
+}
+
+.success {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-8);
+  padding: var(--space-8) 0;
+  text-align: center;
+}
+
+.brandIcon {
+  color: var(--text-brand);
+}
+
+.successTitle {
+  font: var(--font-heading);
+  color: var(--text-primary);
+}
+
+.successDetail {
+  font: var(--font-body);
+  color: var(--text-secondary);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pinned,
+  .pinnedVisible {
+    transition: none;
+  }
+}
