@@ -50,6 +50,49 @@
   color: var(--link-fg-pressed);
 }
 
+/* ── Screen transitions (CSS only; `backwards` so no transform lingers after) ── */
+.view {
+  height: 100%;
+  outline: none;
+}
+
+.push {
+  animation: push 280ms cubic-bezier(0.2, 0.8, 0.2, 1) backwards;
+}
+.pop {
+  animation: pop 280ms cubic-bezier(0.2, 0.8, 0.2, 1) backwards;
+}
+.tab {
+  animation: tab 200ms ease-out backwards;
+}
+
+@keyframes push {
+  from {
+    opacity: 0;
+    transform: translateX(var(--space-32));
+  }
+}
+@keyframes pop {
+  from {
+    opacity: 0;
+    transform: translateX(calc(-1 * var(--space-32)));
+  }
+}
+@keyframes tab {
+  from {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .push,
+  .pop,
+  .tab {
+    animation: none;
+  }
+}
+
 /* On a phone the app is the whole page. */
 @media (max-width: 599px), (max-height: 699px) and (pointer: coarse) {
   .stage {

@@ -241,4 +241,4 @@ Intent matching for the demo: amounts ("make it 4.000", "4000 €"), dates ("in 
 5. PlanCard (all states) and PlanHeader. ✅
 6. ChatMessage, Composer, TopBar, BottomNav, BottomSheet. ✅ (+ DeviceFrame, component gallery)
 7. Conversation state machine and screens, then the Home and Goal screens. ✅
-8. Transitions, sticky header, polish, deploy.
+8. Transitions, sticky header, polish, deploy. ✅ (CSS transitions only, no framer-motion)

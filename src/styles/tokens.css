@@ -147,6 +147,7 @@
   --device-status-fg: var(--text-primary);
   --hero-glow: var(--brand-600);
   --hero-glow-soft: var(--brand-200);
+  --value-updated-bg: var(--brand-100);
   --scrim: rgb(20 23 34 / 0.4);
 
   /* Dimensions */

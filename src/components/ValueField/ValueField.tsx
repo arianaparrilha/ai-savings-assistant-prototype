@@ -35,6 +35,7 @@ export function ValueField({
   onCancel,
   className,
 }: ValueFieldProps) {
+  const flash = useFlashOnChange(value);
   return (
     <div className={cx(styles.field, className)}>
       <span className={styles.label}>{label}</span>
@@ -42,7 +43,7 @@ export function ValueField({
         <Editor label={label} initial={editValue} inputType={inputType} onSave={onSave} onCancel={onCancel} />
       ) : (
         <div className={styles.row}>
-          <span className={styles.value} aria-label={ariaValue}>
+          <span key={flash} className={cx(styles.value, flash > 0 && styles.updated)} aria-label={ariaValue}>
             {approx && <span aria-hidden>≈ </span>}
             {value}
           </span>
@@ -121,4 +122,16 @@ function Editor({
       </button>
     </div>
   );
+}
+
+/** Counts value changes after the first render; used as a key to replay the "updated" highlight. */
+function useFlashOnChange(value: string) {
+  const previous = useRef(value);
+  const [count, setCount] = useState(0);
+  useEffect(() => {
+    if (previous.current === value) return;
+    previous.current = value;
+    setCount((c) => c + 1);
+  }, [value]);
+  return count;
 }

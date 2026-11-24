@@ -34,6 +34,9 @@ export function Assistant({ convo, onBack, onViewGoal }: AssistantProps) {
   const [pinned, setPinned] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
   const cardRef = useRef<HTMLElement>(null);
+  // Messages that existed when the screen opened don't animate in again.
+  const seenUpTo = useRef(state.seq);
+  const mounted = useRef(false);
 
   const plan = planOf(state);
   const lastId = state.messages.at(-1)?.id;
@@ -43,9 +46,11 @@ export function Assistant({ convo, onBack, onViewGoal }: AssistantProps) {
   useEffect(() => {
     const scroller = scrollRef.current;
     const el = scroller?.querySelector<HTMLElement>(`[data-msg="${state.focus}"]`);
+    const instant = !mounted.current || reducedMotion();
+    mounted.current = true;
     if (!scroller || !el) return;
     const top = el.getBoundingClientRect().top - scroller.getBoundingClientRect().top + scroller.scrollTop - 16;
-    scroller.scrollTo({ top, behavior: reducedMotion() ? 'auto' : 'smooth' });
+    scroller.scrollTo({ top, behavior: instant ? 'auto' : 'smooth' });
   }, [state.focus]);
 
   // PlanHeader sticks below the TopBar once the card's header scrolls away.
@@ -191,12 +196,12 @@ export function Assistant({ convo, onBack, onViewGoal }: AssistantProps) {
               </div>
             )}
             {state.messages.map((m) => (
-              <div key={m.id} data-msg={m.id} className={cx(styles.item, m.type === 'changeLog' && styles.log)}>
+              <div key={m.id} data-msg={m.id} className={cx(styles.item, m.type === 'changeLog' && styles.log, m.id > seenUpTo.current && styles.enter)}>
                 {render(m)}
               </div>
             ))}
             {thinking && (
-              <ChatMessage type="working">
+              <ChatMessage type="working" className={styles.enter}>
                 <span>Thinking…</span>
               </ChatMessage>
             )}

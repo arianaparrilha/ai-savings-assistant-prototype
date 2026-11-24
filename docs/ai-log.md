@@ -87,3 +87,12 @@ Notable decisions and corrections while building the prototype with Claude Code.
 - Why sheet title "Review 4 actions" → "Why these numbers?" (Figma D reuses the review sheet's title).
 
 **New tokens**: `HeroGlow` → Brand/600, `HeroGlowSoft` → Brand/200 (Home hero gradient).
+
+## 2026-11-24 · Transitions and polish
+
+- Transitions are CSS only (framer-motion not added). Entering the assistant slides in from the right, leaving it slides back, and tabs fade through. New chat messages rise in; messages already on screen don't replay. All motion is off with `prefers-reduced-motion`.
+- Recalculated plan values get a brief highlight when they change. New token `ValueUpdatedBg` → Brand/100.
+- After navigating, focus moves to the new screen (keyboard and screen readers). Reopening the assistant jumps straight to the latest reply.
+- Checked at a 360 px phone viewport (emulated): no overflow; plan values drop to ValueMd as designed.
+- Page metadata: description, theme colour, Open Graph title and description, SVG favicon (sparkle on Brand/100).
+- Deploy: Cloudflare had lost its GitHub connection, so pushes didn't build. Reconnected on 2026-11-24 and the latest commit is live.

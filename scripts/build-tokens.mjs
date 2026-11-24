@@ -152,6 +152,7 @@ const components = {
   DeviceStatusFg: 'text-primary',
   HeroGlow: 'brand-600',
   HeroGlowSoft: 'brand-200',
+  ValueUpdatedBg: 'brand-100',
 };
 const alias = (map) => Object.entries(map).map(([k, v]) => `  --${kebab(k)}: var(--${v});`);
 const scrim = `  --scrim: ${hexToRgba(json.Neutral['900'].$value, 0.4)};`;
